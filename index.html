@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>景利實業-113/11/26會議記錄</title>
+    <!-- 引入 Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 自訂一些樣式 */
+        .sidebar {
+            background-color: #f8f9fa; /* 側邊欄背景色 */
+            padding: 15px;
+            height: 100vh; /* 使側邊欄佔滿全高 */
+            position: sticky;
+            top: 0; /* 固定在螢幕上方 */
+        }
+        .content {
+            padding: 15px;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        
+    </style>
+</head>
+<body>
+    <img src="https://th.bing.com/th/id/OIP.MUEFEvIoi0Ju_-Ceu3tWOAAAAA?rs=1&pid=ImgDetMain" width="60px">
+    <a style="color: darkblue;font-weight: bold;font-size: 30px;">景利實業有限公司簡介</a>
+    <div class="shape">
+    <article>
+        <img src="https://www.gin-lee.com.tw/comm/upimage/a_200619_09211.jpg" width="400px" style="float: left;margin: 15px;"><br>
+        <p>景利實業股份有限公司，創立於西元1997年，位於台灣彰化縣溪湖鎮，於塑膠射出製造業中有一定的水準規模。秉持追求卓越、
+        永續經營的理念與致力於提供客戶信賴的產品服務和品質，我司於2010年至2019年間接續通過ISO 9001:2015國際品質認證、
+        ISO 14001:2015環境管理認證以及IATF 16949全球汽車產業品質管理系統認證。<br>
+        &emsp;&emsp;景利提供客戶專業塑膠射出成型的服務，在精密塑膠模具設計與製造領域，有20餘年的豐富經驗。從產品開發、模具設計與製造
+        、射出成型、二次加工以及裝配組立，我司提供客戶垂直整合的服務。我司擁有專業的模具設計研發團隊、技術人員與先進的設備
+        ，如：射出成型機台、品質檢驗儀器、自動塗裝線等，因此能提供給客戶設計、開模、射出、塗裝、印刷和組立的一條龍產品服務
+        ，不僅能確保完善的產品品質，同時也替客戶節省時間與成本。<br>
+        &emsp;&emsp;我司提供客戶OEM客製化服務。主要產品服務範圍涵蓋消費性電子、汽機車、電子、醫療、航太和緊固件等產業塑膠零件。產品項目
+        包含手機電腦鏡頭組件、相機零件製造、汽車塑膠零件、汽機車內飾件、印表機零件、事務機零組件、拋棄式醫療裝置、醫療器材配
+        件、電子連接器、航太零配件、緊固件和塑膠扣件等。<br>
+        &emsp;&emsp;純熟專業技術、良好品質控管、誠信服務態度、具競爭力價格，使得企業能持續經營與成長，和客戶共同追求雙贏局面。<br>
+        歡迎您，選擇景利，共創利益！</p>
+    </article>
+    </div>
+    <br>
+    <p style="color: darkblue;font-weight: bold;font-size: 30px;">景利實業需求彙整</p>
+    <ul>
+        <li>模具加工機預計有14台要連網</li>
+            <ul>
+                <li>機台為近五年採購，控制器的部分以func為主</li>
+                <li>皆有配置網路孔，因此後續需要業主確認是否開通通訊功能</li>
+            </ul>
+        <li>景利正在評估一套智慧製造的軟體，因此機聯網的部分，需收集資料後，需將資料寫入智慧製造的軟體</li>
+        <li>需考慮機台的稼動率與故障率，將相關數據寫入智慧製造的系統</li>
+        <li>系統的部分，報價內容需包含一台電腦做資料收集，並且系統需要用專用機獨立使用，景利建議藉由我們公司建置的伺服器來架設網頁</li>
+    </ul>
+    <p style="color: darkblue;font-weight: bold;font-size: 30px;">新陳規劃方案</p>
+    <ul>
+        <li>14台模具工具機聯網的部分由業主處理，目前會先規劃一台資料收集主機。</li>
+        <li>需介接智慧製造管理系統，介接資訊需再釐清，預計會將生產數據匯入系統。</li>
+        <li>中央監控系統的軟體以VTScada來建構平台，</li>
+        <li>每一台機台取得三個訊號，手自動、啟動中、異常訊號，共42個訊號，可以先行採用VTScada Light版本來建置。</li>
+        <p  style="color: darkblue;font-weight: bold;font-size: 20px;">系統架構圖</p>
+    </ul>
+    <div class="content" style="background-color: blanchedalmond;">
+        <img src="景利實業-機聯網系統113112601.png" alt="機聯網架構圖" width="1500" style="float:center;">
+    </div>
+</html>
