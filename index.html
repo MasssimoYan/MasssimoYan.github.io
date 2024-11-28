@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>嘉南管理處-八掌溪閘控系統建置</title>
+    <!-- 引入 Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 自訂一些樣式 */
+        .sidebar {
+            background-color: #f8f9fa; /* 側邊欄背景色 */
+            padding: 15px;
+            height: 100vh; /* 使側邊欄佔滿全高 */
+            position: sticky;
+            top: 0; /* 固定在螢幕上方 */
+        }
+        .content {
+            padding: 15px;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        th,td {
+            border: 1px solid rgb(160 160 160);
+            padding: 8px 10px;
+}
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- 左側目錄 (Sidebar) -->
+            <div class="col-12 col-md-2 sidebar">
+                <img src="https://pic.pimg.tw/stone018/1638504737-630777585-g.gif" class="img-fluid img-responsive" width="100%" style="border: 3px solid;">
+                <h4 style="color: darkblue;">目錄</h4>
+                <ul class="list-unstyled">
+                    <li><a href="#Architecture Digram">八掌溪系統架構圖</a></li>
+                    <li><a href="#PLC Slot Oder">PLC 插槽順序</a></li>
+                    <li><a href="#PLC IO Table">PLC IO表</a></li>
+                    <li><a href="#PLC Specification">PLC 規格與功能</a></li>
+                    <li><a href="#HMI Specification">HMI 規格與功能</a></li>
+                    <li><a href="#Cloud Specification">雲端 規格</a></li>
+                    <li><a href="#Question List">問題彙整</a></li>
+                    <li><a href="#Info">注意事項</a></li>
+                    <li><a href="#Device List">設備清單</a></li>
+                </ul>
+                <img src="https://www.gxt8.cn/uploads/allimg/1911/11-19112QH547.gif" class="img-fluid img-responsive" width="100%" style="border: 3px solid;">
+                <img src="https://media0.giphy.com/media/VwDIQURnPytzTMaV7D/giphy.gif?cid=6c09b952oc3mpig7zegb3zam7u3af7tgyc6emdtg96p4mkrp&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g" 
+                class="img-fluid img-responsive" width="100%" style="border: 3px solid;">
+            </div>
+
+            <!-- 右側內容 (表格) -->
+            <div class="col-12 col-md-10 content">
+                <div id="Architecture Digram" >
+                    <p style="font-size: 30px;font-weight: bold;color: darkblue;text-align: center;">八掌溪系統架構圖</p>
+                    <img src="八掌溪-水資源調配管理系統1130090401.png" width="1500" class="img-fluid" style="display: flex;background-position: center center;">                    
+                </div>
+                <div id="PLC Slot Oder">
+                    <p style="font-size: 30px;font-weight: bold;color: darkblue;text-align: center;">PLC 插槽順序</p>
+                    <div style="border: 3px solid;">
+                        <article>
+                            <h4 style="text-align: center;color: darkblue;">MPA 模組編排順序</h4>
+                            <table class="table">
+                        <thead >
+                            <tr>
+                                <th style="border-style: ridge;">主底板型號</th><!--主底板型號-->
+                                <th scope="col">CPU電源</th><!--CPU電源-->
+                                <th scope="col">CPU模組</th><!--CPU模組-->
+                                <th scope="col">Slot 0</th><!--Slot 0-->
+                                <th scope="col">Slot 1</th><!--Slot 1-->
+                                <th scope="col">Slot 2</th><!--Slot 2-->
+                                <th scope="col">Slot 3</th><!--Slot 3-->
+                                <th scope="col">Slot 4</th><!--Slot 4-->
+                                <th scope="col">Slot 5</th><!--Slot 5-->
+                                <th scope="col">Slot 6</th><!--Slot 6-->
+                                <th scope="col">Slot 7</th><!--Slot 7-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">主底板</th><!--主底板型號-->
+                                <td>CPU電源</td><!--CPU電源-->
+                                <td>CPU</td><!--CPU模組-->
+                                <td>輸入模組</td><!--Slot 0-->
+                                <td>輸入模組</td><!--Slot 1-->
+                                <td>輸入模組</td><!--Slot 2-->
+                                <td>輸入模組</td><!--Slot 3-->
+                                <td>輸出模組</td><!--Slot 4-->
+                                <td>輸出模組</td><!--Slot 5-->
+                                <td>類比輸入模組</td><!--Slot 6-->
+                                <td>類比輸出模組</td><!--Slot 7-->
+                            </tr>
+                            <tr style="background-color: lightblue;">
+                                <th>AHBP08M1-5A</th><!--主底板型號-->
+                                <td>AHPS05-5A</td><!--CPU電源-->
+                                <td>AHCPU501-EN</td><!--CPU模組-->
+                                <td>AH16AM10N-5A</td><!--Slot 0-->
+                                <td>AH16AM10N-5A</td><!--Slot 1-->
+                                <td>AH16AM10N-5A</td><!--Slot 2-->
+                                <td>AH16AM10N-5A</td><!--Slot 3-->
+                                <td>AH16AN01R-5A</td><!--Slot 4-->
+                                <td>AH16AN01R-5A</td><!--Slot 5-->
+                                <td>AH08AD-5A</td><!--Slot 6-->
+                                <td>AH08DA-5A</td><!--Slot 7-->
+                            </tr>
+                            <tr>
+                                <th colspan="11" style="background-color: lightyellow;"></th>
+                            </tr>
+                            <tr>
+                                <th>延伸底板</th><!--主底板型號-->
+                                <td>CPU電源</td><!--CPU電源-->
+                                <td>無</td><!--CPU模組-->
+                                <td>通訊模組</td><!--Slot 0-->
+                                <td>乙太網路模組</td><!--Slot 1-->
+                                <td>無</td><!--Slot 2-->
+                                <td>無</td><!--Slot 3-->
+                                <td>無</td><!--Slot 4-->
+                                <td>無</td><!--Slot 5-->
+                                <td>無</td><!--Slot 6-->
+                                <td>無</td><!--Slot 7-->
+                            </tr>
+                            <tr style="background-color: lightblue;">
+                                <th>AHBP08E1-5A</th><!--主底板型號-->
+                                <td>AHPS05-5A</td><!--CPU電源-->
+                                <td>無</td><!--CPU模組-->
+                                <td>AH10SCM-5A</td><!--Slot 0-->
+                                <td>AH10EN-5A</td><!--Slot 1-->
+                                <td>無</td><!--Slot 2-->
+                                <td>無</td><!--Slot 3-->
+                                <td>無</td><!--Slot 4-->
+                                <td>無</td><!--Slot 5-->
+                                <td>無</td><!--Slot 6-->
+                                <td>無</td><!--Slot 7-->
+                            </tr>
+                        </tbody>
+                        <tfoot></tfoot>
+                            </table> 
+                        </article>
+                        <article>
+                        <h4 style="text-align: center;color: darkblue;">IPC2-1 模組編排順序</h4>
+                        <table class="table">
+                        <thead >
+                            <tr>
+                                <th style="border-style: ridge;">主底板型號</th><!--主底板型號-->
+                                <th>CPU電源</th><!--CPU電源-->
+                                <th>CPU模組</th><!--CPU模組-->
+                                <th>Slot 0</th><!--Slot 0-->
+                                <th>Slot 1</th><!--Slot 1-->
+                                <th>Slot 2</th><!--Slot 2-->
+                                <th>Slot 3</th><!--Slot 3-->
+                                <th>Slot 4</th><!--Slot 4-->
+                                <th>Slot 5</th><!--Slot 5-->
+                                <th>Slot 6</th><!--Slot 6-->
+                                <th>Slot 7</th><!--Slot 7-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>主底板</th><!--主底板型號-->
+                                <td>CPU電源</td><!--CPU電源-->
+                                <td>CPU</td><!--CPU模組-->
+                                <td>輸入模組</td><!--Slot 0-->
+                                <td>輸出模組</td><!--Slot 1-->
+                                <td>類比輸入模組</td><!--Slot 2-->
+                                <td>類比輸出模組</td><!--Slot 3-->
+                                <td>通訊模組</td><!--Slot 4-->
+                                <td>乙太網路模組</td><!--Slot 5-->
+                                <td>無</td><!--Slot 6-->
+                                <td>無</td><!--Slot 7-->
+                            </tr>
+                            <tr style="background-color: lightblue;">
+                                <th>AHBP08M1-5A</th><!--主底板型號-->
+                                <td>AHPS05-5A</td><!--CPU電源-->
+                                <td>AHCPU501-EN</td><!--CPU模組-->
+                                <td>AH16AM10N-5A</td><!--Slot 0-->
+                                <td>AH16AN01R-5A</td><!--Slot 1-->
+                                <td>AH08AD-5A</td><!--Slot 2-->
+                                <td>AH08DA-5A</td><!--Slot 3-->
+                                <td>AH10SCM-5A</td><!--Slot 4-->
+                                <td>AH10EN-5A</td><!--Slot 5-->
+                                <td>無</td><!--Slot 6-->
+                                <td>無</td><!--Slot 7-->
+                            </tr>
+                        </tbody>
+                        <tfoot></tfoot>
+                        </table>
+                        </article>
+                        <article>
+                        <h4 style="text-align: center;color: darkblue;">IPC2-3 模組編排順序</h4>
+                        <table class="table">
+                        <thead >
+                            <tr>
+                                <th style="border-style: ridge;">主底板型號</th><!--主底板型號-->
+                                <th>CPU電源</th><!--CPU電源-->
+                                <th>CPU模組</th><!--CPU模組-->
+                                <th>Slot 0</th><!--Slot 0-->
+                                <th>Slot 1</th><!--Slot 1-->
+                                <th>Slot 2</th><!--Slot 2-->
+                                <th>Slot 3</th><!--Slot 3-->
+                                <th>Slot 4</th><!--Slot 4-->
+                                <th>Slot 5</th><!--Slot 5-->
+                                <th>Slot 6</th><!--Slot 6-->
+                                <th>Slot 7</th><!--Slot 7-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>主底板</th><!--主底板型號-->
+                                <td>CPU電源</td><!--CPU電源-->
+                                <td>CPU</td><!--CPU模組-->
+                                <td>輸入模組</td><!--Slot 0-->
+                                <td>輸出模組</td><!--Slot 1-->
+                                <td>類比輸入模組</td><!--Slot 2-->
+                                <td>類比輸出模組</td><!--Slot 3-->
+                                <td>通訊模組</td><!--Slot 4-->
+                                <td>乙太網路模組</td><!--Slot 5-->
+                                <td>無</td><!--Slot 6-->
+                                <td>無</td><!--Slot 7-->
+                            </tr>
+                            <tr style="background-color: lightblue;">
+                                <th>AHBP08M1-5A</th><!--主底板型號-->
+                                <td>AHPS05-5A</td><!--CPU電源-->
+                                <td>AHCPU501-EN</td><!--CPU模組-->
+                                <td>AH16AM10N-5A</td><!--Slot 0-->
+                                <td>AH16AN01R-5A</td><!--Slot 1-->
+                                <td>AH08AD-5A</td><!--Slot 2-->
+                                <td>AH08DA-5A</td><!--Slot 3-->
+                                <td>AH10SCM-5A</td><!--Slot 4-->
+                                <td>AH10EN-5A</td><!--Slot 5-->
+                                <td>無</td><!--Slot 6-->
+                                <td>無</td><!--Slot 7-->
+                            </tr>
+                        </tbody>
+                        <tfoot></tfoot>
+                        </table>
+                        </article>
+                        <article>
+                            <a style="font-size: 20px;font-weight: bold;color: darkblue;">PLC 設備總數量如下:</a>
+                            <ul>
+                                <li>主底板:3個</li>
+                                <li>延伸背板:1個</li>
+                                <li>CPU 電源供應器:4個</li>
+                                <li>CPU:3個</li>
+                                <li>DI 模組:6個</li>
+                                <li>DO 模組:4個</li>
+                                <li>AI 模組:3個</li>
+                                <li>AO 模組:3個</li>
+                                <li>通訊 模組:3個</li>
+                                <li>乙太網路模組:3個</li>
+                            </ul>
+                        </article>
+                    </div>   
+                </div>
+                <div id="PLC IO Table" >
+                    <p style="font-size: 30px;font-weight: bold;color: darkblue;text-align: center;">PLC IO 總表</p>
+                    <article>
+                        <h4 style="text-align: center;color: darkblue;">MPA PLC IO 表</h4>
+                    </article>
+                    <article>
+                        <h4 style="text-align: center;color: darkblue;">IPC2-1 PLC IO 表</h4>
+                    </article>
+                    <article>
+                        <h4 style="text-align: center;color: darkblue;">IPC2-3 PLC IO 表</h4>
+                    </article>           
+                </div>
+                <div id="PLC Specification" style="border: 3px solid;">
+                    <p style="font-size: 30px;font-weight: bold;color: darkblue;text-align: center;">PLC 規格</p>
+                    <article style="border:  solid;background-color: lightblue;">
+                        <a style="color: darkblue;font-size: 20px;font-weight: bold;">PLC 通訊項目</a>
+
+                    </article>
+                    <article style="border:  solid;background-color: lightblue;">
+                        <a style="color: darkblue;font-size: 20px;font-weight: bold;">PLC 功能撰寫</a>
+
+                    </article>
+                </div>
+                <div id="HMI Specification" style="border: 3px solid;">
+                    <p style="font-size: 30px;font-weight: bold;color: darkblue;text-align: center;">HMI 規格與功能</p>
+                    <article style="background-color: lightblue; border: 3px solid;">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbXqm-zNAcUxyHS9hwsikHGykTMo82Au7VHg&s" width="15%" class="img-fluid float-start" style="margin: 25px;">
+                        <a style="color: darkblue;font-size: 20px;font-weight: bold;">HMI 設備廠牌與型號</a>
+                        <ul>
+                            <li>設備廠牌: 北爾人機</li>
+                            <li>設備型號: iX Base 15 v2</li>
+                            <li>具備X2 Web，內建HTML5 Web Client</li>
+                            <li>UL、CE、FCC 與KCC 認證整個 X2 系列均通過嚴苛的認證標準。</li>
+                            <li>寬溫操作範圍-10°C 至 +60°C寬溫操作範圍-10°C 至+60°C (X2 pro web)和-30°C 至+70°C (X2extreme web) 的廣泛工作溫度可滿足大部分產業的需求。</li>
+                            <li>Cortex-A9 處理器強大的單核心或雙核心ARM Cortex-A9 處理器在高需求應用方面提供快速的畫面切換與程式執行功能。</li>
+                        </ul>
+                    </article>
+                    <article style="background-color: lightblue; border: 3px solid;">
+                        <img src="https://ww2.mathworks.cn/discovery/opc-ua/_jcr_content/mainParsys/image.adapt.full.medium.png/1718266160124.png" width="15%" class="img-fluid float-start" style="margin: 25px;">
+                        <a style="color: darkblue;font-size: 20px;font-weight: bold;">HMI 通訊功能</a>
+                        <ul>
+                            <li>與PLC 通訊: 透過Modicon通訊，與台達 AH-PLC 網路模組交握，數量:3台</li>
+                            <li>HTML5 網頁建置:建置HTML5網頁功能，讓使用人員透過網頁操作現場的閘門，因需跨裝置顯示，須將網頁設計為響應式網頁</li>
+                            <li>農水署平台:與農水署平台是透過OPCUA傳輸Tag狀態與控制，需參照農水署的文件建置Tag名稱與資料格式。</li>
+                            <br><br>
+                        </ul>
+                    </article>
+                    <article style="background-color: lightblue; border: 3px solid;">
+                        <a style="color: darkblue;font-size: 20px;font-weight: bold;">HMI 軟體系統架構</a>
+                        <ul>
+                            <li>現地操作</li>
+                            <ul>
+                                <li>觀看模式</li>
+                                <li>權限管控:分觀看、操作、管理三個等級</li>
+                                <li>操作畫面分為總攬圖、MAP控制圖、IPC2-1控制圖、IPC2-3控制圖、警報總攬、操作紀錄、登入紀錄</li>
+                            </ul>
+                            <p style="color: red;">需要繪製流程圖</p>
+                            <li>行動與網頁操作</li>
+                            <ul>
+                                <li>觀看模式</li>
+                                <li>權限管控:分觀看、操作、管理三個等級</li>
+                                <li>網頁資安登入驗證</li>
+                                <li>操作畫面分為總攬圖、MAP控制圖、IPC2-1控制圖、IPC2-3控制圖、警報總攬、操作紀錄、登入紀錄</li>
+                            </ul>
+                            
+                        </ul>
+                        
+                    </article>
+                </div>  
+                <div id="Cloud Specification" style="border: 3px black solid;">
+                    <p style="font-size: 30px;font-weight: bold;color: darkblue;text-align: center;">雲端 規格</p>
+                    <div  style="border:2px white dashed;background-color: lightblue;">
+                        <h4 style="color: darkblue;">雲端介接與通訊協定</h4>
+                        <ul>
+                            <li>通訊協定: OPC UA、 Mqtt</li>
+                            <li>api 介接: Web Api</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="Question List" style="border: 3px black solid;">
+                    <p style="font-size: 30px;font-weight: bold;color: darkblue;text-align: center;">問題彙整</p>
+                    <article style="background-color: lightblue; border: 3px solid;">
+                        <ul>
+                            <li>依照設計所需的plc模組數量與單價分析表的<a style="color: red;">數量不一</a>，需要增加DI、 DO 模組，且部分模組從其他箱體移過來。</li>
+                            <li>因大目提供的開度為可變電阻，因此需要<a style="color: red;">變更CM5H的型號</a>!!!</li>
+                            <li>雲端平台的架構，因無相關規範，需要進行需求訪談，訪談後再進行規劃。</li>
+                            <li>雷達波水位計數量僅有一組，依據業主需求須於IPC2-1 加裝一組水位計<a style="color: red;">(需在採購)</a></li>
+                            <li>突波抑制器為兩組，分別在MPA、IPC2-1內。</li>
+                        </ul>
+                    </article>
+                </div>
+                <div id="Info" style="border: 3px black solid;">
+                    <p style="font-size: 30px;font-weight: bold;color: darkblue;text-align: center;">注意事項</p>
+                    <article style="background-color: lightblue; border: 3px solid;">
+                        <div  style="border:2px white dashed;">
+                        <h4 style="color: darkblue;">PLC</h4>
+                        <ul>
+                            <li>台達的PLC模組數量，需要再確認，與標單的數量不一樣</li>
+                        </ul>
+                        </div>
+                        <div  style="border:2px white dashed;">
+                        <h4 style="color: darkblue;">HMI</h4>
+                        <ul>
+                            <li>北爾人機 非標單內設備，需特別注意順大箱體設計是否與前期規劃的吻合。</li>
+                            <li>HMI系統流程圖，需規畫繪製後提供給政佑、亞聖。</li>
+                        </ul>
+                        </div>
+                        <div style="border:2px white dashed;">
+                        <h4 style="color: darkblue;">大目機械</h4>
+                        <ul>
+                            <li>大目機械，開度的可變電阻規格:RV24YN 20S B103  10KΩ</li>
+                        </ul>
+                        </div>
+                        <div style="border:2px white dashed;">
+                        <h4 style="color: darkblue;">雲端平台</h4>
+                        <ul>
+                            <li>該項目除了規範有寫需進行原始碼的弱點掃描外，其餘的部分，設計單位、監造單位、使用單位皆無想法。</li>
+                            <li>預計於12/2 軟體部朝開會議討論雲端平台施作的項目。</li>
+                            <li>雲端平台的製作，由資識執行，新陳規劃。</li>
+                        </ul>
+                        </div>
+                        <div style="border: 2px white dashed;">
+                            <h4 style="color: darkblue;"> 水位計</h4>
+                            <ul>
+                                <li>雷達波水位計:  路斯-Sitrans LR150，數量:1組</li>
+                                <li>另一組水位計: 預計採用超音波水位計，路斯 Honda HD353A，數量:1組 </li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+                <div id="Device List">
+                    <p style="font-size: 30px;font-weight: bold;color: darkblue;text-align: center;">設備清單</p>
+                    <article>
+                        <ul>
+                            <li>2k+400-2k+860 型錄路徑: \\192.168.1.246\部門資料交換區\_物聯網工程部\_農業部農田水利署\_嘉南管理處\(113S20)(榮)新科營造-農業部農田水利署_八掌溪支線(2K+400~2K+860)及儲水幹道改建工程_01_00\04.送審資料\提供順大</li>
+                            <li>2+860-3+280 型錄路徑:\\192.168.1.246\部門資料交換區\_物聯網工程部\_農業部農田水利署\_嘉南管理處\(113S21)(榮)家薪營造-農業部農田水利署_八掌溪支線(2K+860~3K+280)及儲水幹道改建工程_01_00\04.送審資料\給順大\給順大盤內設備型錄八掌溪支線(2K+860~3K+280)</li>
+                        </ul>
+                    </article>
+                    <article>
+                        <h4 style="text-align: center;color: darkblue;">MPA 設備清單</h4>
+                        <table class="table table-responsive table-hover" style="border: 3px black solid;">
+                            <thead>
+                                <tr>
+                                    <th>項次</th><!--項次-->
+                                    <th>工作項目</th><!--工作項目-->
+                                    <th>工料名稱</th><!--工料名稱-->
+                                    <th>單位</th><!--單位-->
+                                    <th>數量</th><!--數量-->
+                                    <th>廠牌</th><!--廠牌-->
+                                    <th>型號</th><!--型號-->
+                                    <th>進貨成本</th><!--進貨成本-->
+                                    <th>備註</th><!--備註-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th rowspan="12">壹.一.3.1</th><!--項次-->
+                                    <td rowspan="12">低壓配電盤</td><!--工作項目-->
+                                    <td>低壓配電盤 304，1200(W)x2200(H)x800(D)mm</td><!--工料名稱-->
+                                    <td>座</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>順大</td><!--廠牌-->
+                                    <td>客製品</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓突波抑制裝置，三相三線，電源用，突波消除器，40kA，8/20µS，(TVSS)</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>士林</td><!--廠牌-->
+                                    <td>BHP40-3P1R</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th>備註</th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓突波抑制裝置，訊號用避雷器，24V 8/20us，10KA(TVSS)</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>7</td><!--數量-->
+                                    <td>惟聖</td><!--廠牌-->
+                                    <td>DLP-24</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th>最大耐壓電流 20ka</th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，控制開關，水位指示計</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>川得</td><!--廠牌-->
+                                    <td>CM5H</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th>須確定水位計廠牌型號</th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，開度計</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>6</td><!--數量-->
+                                    <td>川得</td><!--廠牌-->
+                                    <td>CM5H-A-PP1-A-NAY</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th>現場開度提供電阻，表頭提供RS-485介接</th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>靜態式不斷電系統，容量1KVA，1ψ，220V/110V(UPS)</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td></td><!--廠牌-->
+                                    <td></td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <td>需選配RS-485擴充管理介面</td><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>叁插座，接地型3極，15A，125V</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>LKEN</td><!--廠牌-->
+                                    <td>LK3214K</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，加熱器，附可調節溫度及濕度控制</td><!--工料名稱-->
+                                    <td>組</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td></td><!--廠牌-->
+                                    <td></td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <td>
+                                        <a style="color: red;">1.瓦數需要再確認。</a><br>
+                                        <p>2. 橋電 CT-KTB011(紅)</p>
+                                        <p>3. 加熱器型號須確認</p>
+                                    </td><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，通風扇及溫度控制，風量≧8CMM</td><!--工料名稱-->
+                                    <td>2</td><!--單位-->
+                                    <td>組</td><!--數量-->
+                                    <td></td><!--廠牌-->
+                                    <td></td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <td>
+                                        <ul>
+                                            <li>僑電 CT-KTA011(藍)</li>
+                                            <li>電壓:AC 2220V</li>
+                                            <li>須附風扇鐵網</li>
+                                            <li>預計採用4"電腦風扇</li>
+                                        </ul>
+                                    </td><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，盤內照明及微動開關，FL+LS</td><!--工料名稱-->
+                                    <td>組</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td></td><!--廠牌-->
+                                    <td></td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <td>
+                                        <ul>
+                                            <li>LED 照明 尺寸須確認</li>
+                                            <li>長柄附輪微動開關須2組，OMRON，含護套</li>
+                                        </ul>
+                                    </td><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>電力監視及控制設備，光電轉換器(鋁軌安裝型)4埠(Hub)</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>普萊德</td><!--廠牌-->
+                                    <td>IGS-620TF</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th>鋁軌型 含光纖埠 </th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，DC POWER</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>ACRO</td><!--廠牌-->
+                                    <td>AD1150F</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th>功率:150W，DC 24V/AC 110V</th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <th rowspan="11">壹.一.3.2</th><!--項次-->
+                                    <td rowspan="11">PLC 設備模組</td><!--工作項目-->
+                                    <td>現場數位控制器，PLC.CPU模組，(MPA)</td><!--工料名稱-->
+                                    <td>組</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>台達</td><!--廠牌-->
+                                    <td>AHCPU501-EN</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，PLC電源模組，(MPA)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AHPS05-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，數位輸入模組，16CH(MPA)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>2</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH16AM10N-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，數位輸出模組，16CH(MPA)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>2</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH16AN01R-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，類比輸入模組，8CH(MPA)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH08AD-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，類比輸出模組，8CH(MPA)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH08DA-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，通訊模組(MPA)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH10SCM-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，乙太網路模組(MPA)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH10EN-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，PLC基座，8槽(MPA)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AHBP08M1-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，PLC擴充基座，8槽，含擴充電纜，(MPA)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AHBP08E1-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>電力監視及控制設備，4~20mA訊號分配器(1對2)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td></td><!--廠牌-->
+                                <td></td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                            </tbody>
+                        </table>
+                    </article>
+                    <article>
+                        <h4 style="text-align: center;color: darkblue;">IPC2-1 設備清單</h4>
+                        <table class="table table-responsive table-hover"  style="border: 3px black solid;">
+                            <thead>
+                                <tr>
+                                    <th>項次</th><!--項次-->
+                                    <th>工作項目</th><!--工作項目-->
+                                    <th>工料名稱</th><!--工料名稱-->
+                                    <th>單位</th><!--單位-->
+                                    <th>數量</th><!--數量-->
+                                    <th>廠牌</th><!--廠牌-->
+                                    <th>型號</th><!--型號-->
+                                    <th>進貨成本</th><!--進貨成本-->
+                                    <th>備註</th><!--備註-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th rowspan="9">壹.一.3.2</th><!--項次-->
+                                    <td rowspan="9">低壓配電盤</td><!--工作項目-->
+                                    <td>低壓配電盤 304，800(W)x1600(H)x600(D)mm</td><!--工料名稱-->
+                                    <td>座</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>順大</td><!--廠牌-->
+                                    <td>客製品</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓突波抑制裝置，三相三線，電源用，突波消除器，40kA，8/20µS，(TVSS)</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>士林</td><!--廠牌-->
+                                    <td>BHP40-3P1R</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th>備註</th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，盤內照明及微動開關，FL+LS</td><!--工料名稱-->
+                                    <td>組</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td></td><!--廠牌-->
+                                    <td></td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <td>
+                                        <ul>
+                                            <li>LED 照明 尺寸須確認</li>
+                                            <li>長柄附輪微動開關須2組，OMRON，含護套</li>
+                                        </ul>
+                                    </td><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>靜態式不斷電系統，容量1KVA，1ψ，220V/110V(UPS)</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td></td><!--廠牌-->
+                                    <td></td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <td>需選配RS-485擴充管理介面</td><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>叁插座，接地型3極，15A，125V</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>LKEN</td><!--廠牌-->
+                                    <td>LK3214K</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，開度計</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>6</td><!--數量-->
+                                    <td>川得</td><!--廠牌-->
+                                    <td>CM5H-A-PP1-A-NAY</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th>現場開度提供電阻，表頭提供RS-485介接</th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，DC POWER</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>ACRO</td><!--廠牌-->
+                                    <td>AD1150F</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th>功率:150W，DC 24V/AC 110V</th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，加熱器，附可調節溫度及濕度控制</td><!--工料名稱-->
+                                    <td>組</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td></td><!--廠牌-->
+                                    <td></td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <td>
+                                        <a style="color: red;">1.瓦數需要再確認。</a><br>
+                                        <p>2. 橋電 CT-KTB011(紅)</p>
+                                        <p>3. 加熱器型號須確認</p>
+                                    </td><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，通風扇及溫度控制，風量≧8CMM</td><!--工料名稱-->
+                                    <td>2</td><!--單位-->
+                                    <td>組</td><!--數量-->
+                                    <td></td><!--廠牌-->
+                                    <td></td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <td>
+                                        <ul>
+                                            <li>僑電 CT-KTA011(藍)</li>
+                                            <li>電壓:AC 2220V</li>
+                                            <li>須附風扇鐵網</li>
+                                            <li>預計採用4"電腦風扇</li>
+                                        </ul>
+                                    </td><!--備註-->
+                                </tr>
+                                <tr>
+                                    <th rowspan="10">壹.一.3.2</th><!--項次-->
+                                    <td rowspan="10">PLC 設備模組</td><!--工作項目-->
+                                    <td>現場數位控制器，PLC.CPU模組，(IPC2-1)</td><!--工料名稱-->
+                                    <td>組</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>台達</td><!--廠牌-->
+                                    <td>AHCPU501-EN</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，PLC電源模組，(IPC2-1)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AHPS05-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，數位輸入模組，16CH(IPC2-1)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>2</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH16AM10N-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，數位輸出模組，16CH(IPC2-1)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH16AN01R-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，類比輸入模組，8CH(IPC2-1)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH08AD-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，類比輸出模組，8CH(IPC2-1)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH08DA-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，通訊模組(IPC2-1)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH10SCM-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，乙太網路模組(IPC2-1)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH10EN-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，PLC基座，8槽(IPC2-1)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AHBP08M1-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>電力監視及控制設備，4~20mA訊號分配器(1對2)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td></td><!--廠牌-->
+                                <td></td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                            </tbody>
+                        </table>
+                    </article>
+                    <article>
+                        <h4 style="text-align: center;color: darkblue;">IPC2-3 設備清單</h4>
+                        <table class="table table-responsive table-hover"  style="border: 3px black solid;">
+                            <thead>
+                                <tr>
+                                    <th>項次</th><!--項次-->
+                                    <th>工作項目</th><!--工作項目-->
+                                    <th>工料名稱</th><!--工料名稱-->
+                                    <th>單位</th><!--單位-->
+                                    <th>數量</th><!--數量-->
+                                    <th>廠牌</th><!--廠牌-->
+                                    <th>型號</th><!--型號-->
+                                    <th>進貨成本</th><!--進貨成本-->
+                                    <th>備註</th><!--備註-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th rowspan="9">壹.一.3.2</th><!--項次-->
+                                    <td rowspan="9">低壓配電盤</td><!--工作項目-->
+                                    <td>低壓配電盤 304，800(W)x1600(H)x600(D)mm</td><!--工料名稱-->
+                                    <td>座</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>順大</td><!--廠牌-->
+                                    <td>客製品</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓突波抑制裝置，三相三線，電源用，突波消除器，40kA，8/20µS，(TVSS)</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>士林</td><!--廠牌-->
+                                    <td>BHP40-3P1R</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th>備註</th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，盤內照明及微動開關，FL+LS</td><!--工料名稱-->
+                                    <td>組</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td></td><!--廠牌-->
+                                    <td></td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <td>
+                                        <ul>
+                                            <li>LED 照明 尺寸須確認</li>
+                                            <li>長柄附輪微動開關須2組，OMRON，含護套</li>
+                                        </ul>
+                                    </td><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>靜態式不斷電系統，容量1KVA，1ψ，220V/110V(UPS)</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td></td><!--廠牌-->
+                                    <td></td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <td>需選配RS-485擴充管理介面</td><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>叁插座，接地型3極，15A，125V</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>LKEN</td><!--廠牌-->
+                                    <td>LK3214K</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，開度計</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>6</td><!--數量-->
+                                    <td>川得</td><!--廠牌-->
+                                    <td>CM5H-A-PP1-A-NAY</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th>現場開度提供電阻，表頭提供RS-485介接</th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，DC POWER</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>ACRO</td><!--廠牌-->
+                                    <td>AD1150F</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th>功率:150W，DC 24V/AC 110V</th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，加熱器，附可調節溫度及濕度控制</td><!--工料名稱-->
+                                    <td>組</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td></td><!--廠牌-->
+                                    <td></td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <td>
+                                        <ul>
+                                            <li><a style="color: red;">瓦數需要再確認。</a></li>
+                                            <li>橋電 CT-KTB011(紅)</li>
+                                            <li>加熱器型號須確認</li>
+                                        </ul>
+                                    </td><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，通風扇及溫度控制，風量≧8CMM</td><!--工料名稱-->
+                                    <td>2</td><!--單位-->
+                                    <td>組</td><!--數量-->
+                                    <td></td><!--廠牌-->
+                                    <td></td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <td>
+                                        <ul>
+                                            <li>僑電 CT-KTA011(藍)</li>
+                                            <li>電壓:AC 2220V</li>
+                                            <li>須附風扇鐵網</li>
+                                            <li>預計採用4"電腦風扇</li>
+                                        </ul>
+                                    </td><!--備註-->
+                                </tr>
+                                <tr>
+                                    <th rowspan="9">壹.一.3.2</th><!--項次-->
+                                    <td rowspan="9">PLC 設備模組</td><!--工作項目-->
+                                    <td>現場數位控制器，PLC.CPU模組，(IPC2-3)</td><!--工料名稱-->
+                                    <td>組</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>台達</td><!--廠牌-->
+                                    <td>AHCPU501-EN</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，PLC電源模組，(IPC2-3)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AHPS05-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，數位輸入模組，16CH(IPC2-3)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>2</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH16AM10N-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，數位輸出模組，16CH(IPC2-3)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH16AN01R-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，類比輸入模組，8CH(IPC2-3)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH08AD-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，類比輸出模組，8CH(IPC2-3)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH08DA-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，通訊模組(IPC2-3)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH10SCM-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，乙太網路模組(IPC2-3)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AH10EN-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                             <tr>
+                                <td>現場數位控制器，PLC基座，8槽(IPC2-3)</td><!--工料名稱-->
+                                <td>組</td><!--單位-->
+                                <td>1</td><!--數量-->
+                                <td>台達</td><!--廠牌-->
+                                <td>AHBP08M1-5A</td><!--型號-->
+                                <td></td><!--進貨成本-->
+                                <th></th><!--備註-->
+                             </tr>
+                            </tbody>
+                        </table>
+                    </article> 
+                    <article>
+                        <h4 style="text-align: center;color: darkblue;">KWH 2-1 台電電錶箱</h4>
+                        <table class="table table-responsive table-hover"  style="border: 3px black solid;">
+                            <thead>
+                                <tr>
+                                    <th>項次</th><!--項次-->
+                                    <th>工作項目</th><!--工作項目-->
+                                    <th>工料名稱</th><!--工料名稱-->
+                                    <th>單位</th><!--單位-->
+                                    <th>數量</th><!--數量-->
+                                    <th>廠牌</th><!--廠牌-->
+                                    <th>型號</th><!--型號-->
+                                    <th>進貨成本</th><!--進貨成本-->
+                                    <th>備註</th><!--備註-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th rowspan="3">壹.一.3.2</th><!--項次-->
+                                    <td rowspan="3">低壓配電盤</td><!--工作項目-->
+                                    <td>低壓配電盤 304，350(W)x1500(H)x300(D)mm</td><!--工料名稱-->
+                                    <td>座</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>順大</td><!--廠牌-->
+                                    <td>客製品</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>無熔線斷路器，3P，75AT，125AF，25kA，220V</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>士林</td><!--廠牌-->
+                                    <td>NF125-SN</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，控制開關，閘刀開關，DS 3P 100A</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>光威</td><!--廠牌-->
+                                    <td></td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </article>
+                    <article>
+                        <h4 style="text-align: center;color: darkblue;">KWH 2-2 台電電錶箱</h4>
+                        <table class="table table-responsive table-hover"  style="border: 3px black solid;">
+                            <thead>
+                                <tr>
+                                    <th>項次</th><!--項次-->
+                                    <th>工作項目</th><!--工作項目-->
+                                    <th>工料名稱</th><!--工料名稱-->
+                                    <th>單位</th><!--單位-->
+                                    <th>數量</th><!--數量-->
+                                    <th>廠牌</th><!--廠牌-->
+                                    <th>型號</th><!--型號-->
+                                    <th>進貨成本</th><!--進貨成本-->
+                                    <th>備註</th><!--備註-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th rowspan="3">壹.一.3.2</th><!--項次-->
+                                    <td rowspan="3">低壓配電盤</td><!--工作項目-->
+                                    <td>低壓配電盤 304，350(W)x1500(H)x300(D)mm</td><!--工料名稱-->
+                                    <td>座</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>順大</td><!--廠牌-->
+                                    <td>客製品</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>無熔線斷路器，3P，75AT，125AF，25kA，220V</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>士林</td><!--廠牌-->
+                                    <td>NF125-SN</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，控制開關，閘刀開關，DS 3P 100A</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>光威</td><!--廠牌-->
+                                    <td></td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </article>
+                    <article>
+                        <h4 style="text-align: center;color: darkblue;">KWH 2-3 台電電錶箱</h4>
+                        <table class="table table-responsive table-hover"  style="border: 3px black solid;">
+                            <thead>
+                                <tr>
+                                    <th>項次</th><!--項次-->
+                                    <th>工作項目</th><!--工作項目-->
+                                    <th>工料名稱</th><!--工料名稱-->
+                                    <th>單位</th><!--單位-->
+                                    <th>數量</th><!--數量-->
+                                    <th>廠牌</th><!--廠牌-->
+                                    <th>型號</th><!--型號-->
+                                    <th>進貨成本</th><!--進貨成本-->
+                                    <th>備註</th><!--備註-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th rowspan="3">壹.一.3.2</th><!--項次-->
+                                    <td rowspan="3">低壓配電盤</td><!--工作項目-->
+                                    <td>低壓配電盤 304，350(W)x1500(H)x300(D)mm</td><!--工料名稱-->
+                                    <td>座</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>順大</td><!--廠牌-->
+                                    <td>客製品</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>無熔線斷路器，3P，75AT，125AF，25kA，220V</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>士林</td><!--廠牌-->
+                                    <td>NF125-SN</td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                                </tr>
+                                <tr>
+                                    <td>低壓配電盤，控制開關，閘刀開關，DS 3P 100A</td><!--工料名稱-->
+                                    <td>只</td><!--單位-->
+                                    <td>1</td><!--數量-->
+                                    <td>光威</td><!--廠牌-->
+                                    <td></td><!--型號-->
+                                    <td></td><!--進貨成本-->
+                                    <th></th><!--備註-->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </article>
+                    <article>
+                        <h4 style="text-align: center;color: darkblue;">雲端平台 設備清單</h4>
+                    </article>
+                    <article>
+                        <h4 style="text-align: center;color: darkblue;">工作站 設備清單</h4>
+                    </article>            
+                </div>
+            </div>   
+        </div>
+    </div>
+
+    <!-- 引入 Bootstrap 5 JS 和 Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
